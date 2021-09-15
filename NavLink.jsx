@@ -10,8 +10,12 @@ const LinkNav: FunctionComponent<{
 }> = ({ href, children, className, classActive }) => {
 	const router = useRouter();
 	const [active, setActive] = React.useState(false);
+
 	React.useEffect(() => {
-		const sanitizedPath = router.asPath.split('#')[0].split('?')[0];
+		const sanitizedPath =
+			href.includes('?') || href.includes('#')
+				? router.asPath
+				: router.asPath.split('#')[0].split('?')[0];
 		if (sanitizedPath === href) {
 			return setActive(true);
 		} else {
